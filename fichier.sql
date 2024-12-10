@@ -95,3 +95,17 @@ WHERE watch_history.CompletionPercentage = 100;
 
 -- Trier et limiter 
 
+SELECT *
+FROM movie
+ORDER BY Duration DESC
+
+-- Agrégation 
+
+SELECT movie.Title, AVG(watch_history.CompletionPercentage) 
+FROM watch_history
+RIGHT JOIN movie ON  movie.MovieID = watch_history.MovieID
+GROUP BY movie.Title;
+
+-- group by
+
+
