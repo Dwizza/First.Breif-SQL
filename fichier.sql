@@ -64,3 +64,28 @@ CREATE TABLE watch_history(
     WatchDate DATE NOT NULL, 
     CompletionPercentage INT NOT NULL
 );
+
+-- Insert new movie
+
+INSERT INTO movie(Title, Genre, ReleaseYear, Duration, Rating) VALUES ('g2a','Documentary','2022','150','PG-5');
+
+-- Rechercher des films
+
+SELECT * FROM movie WHERE Genre = 'Comedy';
+
+-- Mise à jour des abonnements
+
+-- Afficher les abonnements
+
+SELECT FirstName, LastName, subscriptionType FROM users, subscription WHERE users.subscriptionID = subscription.subscriptionID;
+
+-- Filtrer les visionnages  
+
+SELECT users.FirstName,users.LastName,watch_history.CompletionPercentage,movie.Title 
+FROM watch_history
+JOIN users ON users.UserId = watch_history.UserId 
+JOIN movie ON movie.MovieID = watch_history.MovieID
+WHERE watch_history.CompletionPercentage = 100;
+
+-- Trier et limiter 
+
