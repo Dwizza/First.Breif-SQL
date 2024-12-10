@@ -75,9 +75,15 @@ SELECT * FROM movie WHERE Genre = 'Comedy';
 
 -- Mise à jour des abonnements
 
+UPDATE users 
+SET subscriptionID =(SELECT subscriptionID FROM subscription WHERE subscriptionType= 'Premium') 
+WHERE subscriptionID =(SELECT subscriptionID FROM subscription WHERE subscriptionType= 'Basic');
+
 -- Afficher les abonnements
 
-SELECT FirstName, LastName, subscriptionType FROM users, subscription WHERE users.subscriptionID = subscription.subscriptionID;
+SELECT FirstName, LastName, subscriptionType 
+FROM users, subscription 
+WHERE users.subscriptionID = subscription.subscriptionID;
 
 -- Filtrer les visionnages  
 
