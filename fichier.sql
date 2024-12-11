@@ -12,10 +12,11 @@ USE test_movies;
 -- create tables subscription
 
 CREATE TABLE subscription(
-	subscriptionID INT AUTO_INCREMENT PRIMARY KEY, (ALTER TABLE subscription ADD CONSTRAINT subscriptionBasicPrumieur CHECK(subscriptionType = 'basic' OR subscriptionType = 'premium');)
+	subscriptionID INT AUTO_INCREMENT PRIMARY KEY, 
     subscriptionType VARCHAR(50),
     monthlyFee decimal(10,2)
 );
+ALTER TABLE subscription ADD CONSTRAINT subscriptionBasicPrumieur CHECK(subscriptionType = 'basic' OR subscriptionType = 'premium');
 
 -- create table users
 
@@ -67,17 +68,19 @@ CREATE TABLE watch_history(
 
 -- Insert new movie
 
-INSERT INTO movie(Title, Genre, ReleaseYear, Duration, Rating) VALUES ('g2a','Documentary','2022','150','PG-5');
+INSERT INTO movie(Title, Genre, ReleaseYear, Duration, Rating) 
+VALUES ('g2a','Documentary','2022','150','PG-5');
 
 -- Rechercher des films
 
-SELECT * FROM movie WHERE Genre = 'Comedy';
+SELECT * 
+FROM movie 
+WHERE Genre = 'Comedy' AND ReleaseYear > '2020';
 
 -- Mise à jour des abonnements
 
 UPDATE users 
-SET subscriptionID =(SELECT subscriptionID FROM subscription WHERE subscriptionType= 'Premium') 
-WHERE subscriptionID =(SELECT subscriptionID FROM subscription WHERE subscriptionType= 'Basic');
+SET subscriptionID = 2 ;
 
 -- Afficher les abonnements
 
@@ -97,7 +100,8 @@ WHERE watch_history.CompletionPercentage = 100;
 
 SELECT *
 FROM movie
-ORDER BY Duration DESC
+ORDER BY Duration DESC 
+LIMIT 5;
 
 -- Agrégation 
 
@@ -107,5 +111,10 @@ RIGHT JOIN movie ON  movie.MovieID = watch_history.MovieID
 GROUP BY movie.Title;
 
 -- group by
+
+SELECT count(FirstName),subscriptionType 
+FROM subscription
+JOIN users ON users.subscriptionID = subscription.subscriptionID
+GROUP BY subscriptionType;
 
 
